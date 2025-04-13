@@ -7,7 +7,7 @@
 ****************************************************************************************************************************
 											PART I: Docker Deployment
 ****************************************************************************************************************************
-
+kloavfkdsffmeycq
 
 ************************************
 Step 1: Basic Setup
@@ -112,7 +112,7 @@ Goto EKS Console and verify the cluster.
 (b)
 eksctl utils associate-iam-oidc-provider \
     --region us-east-1 \
-    --cluster kastro-eks \
+    --cluster afsha-eks \
     --approve
 
 The above command is crucial when setting up an EKS cluster because it enables IAM roles for service accounts (IRSA)
@@ -124,7 +124,7 @@ Without this, these services will not be able to access AWS resources securely.
 (c)
 Before executing the below command, in the 'ssh-public-key' keep the  '<PEM FILE NAME>' (dont give .pem. Just give the pem file name) which was used to create Jenkins Server
 
-eksctl create nodegroup --cluster=kastro-eks \
+eksctl create nodegroup --cluster=afsha-eks \
                        --region=us-east-1 \
                        --name=node2 \
                        --node-type=t3.medium \
@@ -133,7 +133,7 @@ eksctl create nodegroup --cluster=kastro-eks \
                        --nodes-max=4 \
                        --node-volume-size=20 \
                        --ssh-access \
-                       --ssh-public-key=Kastro \
+                       --ssh-public-key=hotstar \
                        --managed \
                        --asg-access \
                        --external-dns-access \
@@ -354,10 +354,10 @@ pipeline {
                     withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
                         sh ''' 
                         echo "Building Docker image..."
-                        docker build --no-cache -t kastrov/bms:latest -f bookmyshow-app/Dockerfile bookmyshow-app
+                        docker build --no-cache -t afshamuskan/bms:latest -f bookmyshow-app/Dockerfile bookmyshow-app
 
                         echo "Pushing Docker image to registry..."
-                        docker push kastrov/bms:latest
+                        docker push afshamuskan/bms:latest
                         '''
                     }
                 }
@@ -390,7 +390,7 @@ pipeline {
                 body: "Project: ${env.JOB_NAME}<br/>" +
                       "Build Number: ${env.BUILD_NUMBER}<br/>" +
                       "URL: ${env.BUILD_URL}<br/>",
-                to: 'kastrokiran@gmail.com',
+                to: 'afshamuskan135@gmail.com',
                 attachmentsPattern: 'trivyfs.txt,trivyimage.txt'
         }
     }
